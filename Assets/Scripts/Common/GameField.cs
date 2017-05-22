@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameField : GameFieldBase
 {
 	private bool[,] filledPos;
 	private StaticObjectsGeneratorBase staticObjects;
     private float wallBottom = 0.5f;
+
+	private DynamicObjectsGeneratorBase dynamicObjects;
 
 	// Use this for initialization
 	void Start () {
@@ -15,16 +18,19 @@ public class GameField : GameFieldBase
 		filledPos = new bool[_rowCount, _columnCount];
         GenerateField();
 
+		dynamicObjects = ObjectCreator.DynamicObjects();
+		GenerateCharacters();
+
 	}
 
     public override void GenerateField()
     {
-        GameObject floorPrefab = staticObjects.GetFloorPrefab();
+		GameObject floorPrefab = staticObjects.GetFloorPrefab();
         Instantiate(floorPrefab, new Vector3(_columnCount / 2, 0, _rowCount / 2), Quaternion.identity);
 
         GenerateBorder();
-		GenerateConcreteWalls ();
-		GenerateBrickWalls ();
+		GenerateConcreteWalls();
+		GenerateBrickWalls();
     }
 
     private void GenerateBorder()
@@ -61,8 +67,8 @@ public class GameField : GameFieldBase
 			{
 				if (i % 2 != 0 && j % 2 != 0) 
 				{
-					Vector3 position = new Vector3 (j, wallBottom, i);
-					Instantiate (concreteWallPrefab, position, Quaternion.identity);
+					Vector3 position = new Vector3(j, wallBottom, i);
+					Instantiate(concreteWallPrefab, position, Quaternion.identity);
 
 					filledPos [i, j] = true;
 				}
@@ -70,23 +76,34 @@ public class GameField : GameFieldBase
 		}
 	}
 
-	private void GenerateBrickWalls ()
+	private void GenerateBrickWalls()
 	{
-		GameObject brickWallPrefab = staticObjects.GetBrickWallPrefab ();
-		System.Random rand = new System.Random ();
+		GameObject brickWallPrefab = staticObjects.GetBrickWallPrefab();
+		System.Random rand = new System.Random();
 
 		for (int k = 0; k < _breakWallsCount; ) {
-			int rowPos = rand.Next (0, _rowCount);
-			int columPos = rand.Next (0, _columnCount);
+			int rowPos = rand.Next (1, _rowCount);
+			int columPos = rand.Next (1, _columnCount);
 
 			if (!filledPos [rowPos, columPos]) 
 			{
 				Vector3 position = new Vector3 (columPos, wallBottom, rowPos);
-				Instantiate (brickWallPrefab, position, Quaternion.identity);
+				Instantiate(brickWallPrefab, position, Quaternion.identity);
 				filledPos [rowPos, columPos] = true;
 				k++;
 			}
 		}
+	}
+
+	private void GenerateCharacters()
+	{
+		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
+		Vector3 position = new Vector3(0, wallBottom*2, 0);
+		Instantiate(playerPrefab, position, Quaternion.identity);
+
+		GameObject enemyPrefab = dynamicObjects.GetEnemyPrefab();
+		Vector3 pos = new Vector3(0, wallBottom*2, 5);
+		Instantiate(enemyPrefab, pos, Quaternion.identity);
 	}
 		
 }

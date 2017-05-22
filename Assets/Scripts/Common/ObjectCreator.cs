@@ -6,7 +6,12 @@ public static class ObjectCreator
 {
 	public static StaticObjectsGeneratorBase StaticObjects()
 	{
-		return new StaticObjectsGenerator ();
+		return new StaticObjectsGenerator();
+	}
+
+	public static DynamicObjectsGeneratorBase DynamicObjects()
+	{
+		return new DynamicObjectsGenerator();
 	}
 		
 }
