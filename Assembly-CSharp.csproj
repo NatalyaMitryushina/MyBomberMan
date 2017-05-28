@@ -50,9 +50,13 @@
      <Compile Include="Assets\Scripts\Base\GameFieldBase.cs" />
      <Compile Include="Assets\Scripts\Base\StaticObjectsGeneratorBase.cs" />
      <Compile Include="Assets\Scripts\Common\DynamicObjectsGenerator.cs" />
+     <Compile Include="Assets\Scripts\Common\Extensions.cs" />
      <Compile Include="Assets\Scripts\Common\GameField.cs" />
+     <Compile Include="Assets\Scripts\Common\Movement.cs" />
      <Compile Include="Assets\Scripts\Common\ObjectCreator.cs" />
+     <Compile Include="Assets\Scripts\Common\PhysicsHelper.cs" />
      <Compile Include="Assets\Scripts\Common\StaticObjectsGenerator.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

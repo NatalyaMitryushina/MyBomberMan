@@ -8,6 +8,7 @@ public class GameField : GameFieldBase
 	private bool[,] filledPos;
 	private StaticObjectsGeneratorBase staticObjects;
     private float wallBottom = 0.5f;
+	private int enemyCount = 3;
 
 	private DynamicObjectsGeneratorBase dynamicObjects;
 
@@ -97,13 +98,51 @@ public class GameField : GameFieldBase
 
 	private void GenerateCharacters()
 	{
-		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
-		Vector3 position = new Vector3(0, wallBottom*2, 0);
-		Instantiate(playerPrefab, position, Quaternion.identity);
+		GetPlayer();
+		GetEnemies();
+		GetPlayer();
 
 		GameObject enemyPrefab = dynamicObjects.GetEnemyPrefab();
 		Vector3 pos = new Vector3(0, wallBottom*2, 5);
 		Instantiate(enemyPrefab, pos, Quaternion.identity);
+	}
+
+	private void GetPlayer()
+	{
+		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
+		Vector3 position = new Vector3(0, wallBottom * 2, 0);
+		Instantiate(playerPrefab, position, Quaternion.identity);
+		FillGameObjectArea(0, 0);
+	}
+
+	private void FillGameObjectArea(int indexX, int indexZ)
+	{
+		filledPos[indexZ, indexX] = true;
+	}
+
+	private void GetEnemies()
+	{
+		System.Random rand = new System.Random();
+		int count = enemyCount;
+		while(count > 0)
+		{
+			int rowPos = rand.Next(0, _rowCount);
+			int columPos = rand.Next(0, _columnCount);
+			if (!filledPos[rowPos, columPos])
+			{
+				GetEnemy(columPos, rowPos);
+				count--;
+			}
+		}
+
+	}
+
+	private void GetEnemy(int indexX, int indexZ)
+	{
+		GameObject enemyPrefab = dynamicObjects.GetEnemyPrefab();
+		Vector3 pos = new Vector3(indexX, wallBottom * 2, indexZ);
+		Instantiate(enemyPrefab, pos, Quaternion.identity);
+		FillGameObjectArea(indexX, indexZ);
 	}
 		
 }

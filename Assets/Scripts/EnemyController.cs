@@ -1,14 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UnityEngine;
 using Assets.Scripts.Common;
 
-public class PlayerController: MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
 	private Vector3 direction;
-	private float speed = 1f;
-	private float distance = 1f;
-	Movement mov;
+	private float speed = 0.5f;
+	private float distance = 1f; 
+	private Movement mov;
 
 	void Start()
 	{
@@ -17,29 +19,23 @@ public class PlayerController: MonoBehaviour
 
 	void Update()
 	{
-		direction = PhysicsHelper.GetDirectionByKey();
+		direction = PhysicsHelper.GetRandomDirection();
 		Vector3 nextPoint = transform.position + direction * distance;
 		if (!IsPossible(nextPoint)) mov.TryMove(this, direction, speed, distance);
 	}
 
 	private bool IsPossible(Vector3 nextPoint)
 	{
-
-		nextPoint = transform.position + direction * distance;
 		var hitColliders = Physics.OverlapCapsule(nextPoint, nextPoint, 0.5f);
+		int enemyOverlapCount = 0;
 		foreach (var col in hitColliders)
 		{
+			if (col.gameObject.tag == "Enemy") enemyOverlapCount++;
 			if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Brick Wall") return true;
 		}
+		if (enemyOverlapCount > 1) return true;
 		return false;
 	}
 
-	void OnTriggerEnter(Collider other)
-	{
-		if (other.tag == "Enemy")
-		{
-			DestroyObject(this.gameObject);
-		}
-	}
-
 }
+

@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BomberMan", "Assembly-CSharp.csproj", "{A23C9898-3F15-7173-75EB-EE14334A7A3B}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{167A4C55-279D-04B8-F9AD-9C18619C707A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A23C9898-3F15-7173-75EB-EE14334A7A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A23C9898-3F15-7173-75EB-EE14334A7A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A23C9898-3F15-7173-75EB-EE14334A7A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A23C9898-3F15-7173-75EB-EE14334A7A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{167A4C55-279D-04B8-F9AD-9C18619C707A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{167A4C55-279D-04B8-F9AD-9C18619C707A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{167A4C55-279D-04B8-F9AD-9C18619C707A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{167A4C55-279D-04B8-F9AD-9C18619C707A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
