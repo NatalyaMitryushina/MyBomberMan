@@ -2,36 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Common;
+using Assets.Scripts.Base;
 
-public class PlayerController: MonoBehaviour
+public class PlayerController : ObjectController
 {
-	private Vector3 direction;
-	private float speed = 1f;
-	private float distance = 1f;
-	Movement mov;
-
-	void Start()
+	public PlayerController()
 	{
-		mov = new Movement();
+		this.speed = 1f;
+		this.distance = 1f;
+	}
+	protected override Vector3 GetDirection()
+	{
+		return PhysicsHelper.GetDirectionByKey();
 	}
 
-	void Update()
-	{
-		direction = PhysicsHelper.GetDirectionByKey();
-		Vector3 nextPoint = transform.position + direction * distance;
-		if (!IsPossible(nextPoint)) mov.TryMove(this, direction, speed, distance);
-	}
-
-	private bool IsPossible(Vector3 nextPoint)
+	protected override bool CanGo(Vector3 nextPoint)
 	{
 
 		nextPoint = transform.position + direction * distance;
 		var hitColliders = Physics.OverlapCapsule(nextPoint, nextPoint, 0.5f);
 		foreach (var col in hitColliders)
 		{
-			if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Brick Wall") return true;
+			if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Brick Wall") return false;
 		}
-		return false;
+		return true;
 	}
 
 	void OnTriggerEnter(Collider other)

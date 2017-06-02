@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Base\DynamicObjectsGeneratorBase.cs" />
      <Compile Include="Assets\Scripts\Base\GameFieldBase.cs" />
+     <Compile Include="Assets\Scripts\Base\ObjectController.cs" />
      <Compile Include="Assets\Scripts\Base\StaticObjectsGeneratorBase.cs" />
      <Compile Include="Assets\Scripts\Common\DynamicObjectsGenerator.cs" />
      <Compile Include="Assets\Scripts\Common\Extensions.cs" />

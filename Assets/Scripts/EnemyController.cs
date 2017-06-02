@@ -4,37 +4,32 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.Common;
+using Assets.Scripts.Base;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : ObjectController
 {
-	private Vector3 direction;
-	private float speed = 0.5f;
-	private float distance = 1f; 
-	private Movement mov;
-
-	void Start()
+	public EnemyController()
 	{
-		mov = new Movement();
+		this.speed = 0.3f;
+		this.distance = 1f;
 	}
 
-	void Update()
+	protected override Vector3 GetDirection()
 	{
-		direction = PhysicsHelper.GetRandomDirection();
-		Vector3 nextPoint = transform.position + direction * distance;
-		if (!IsPossible(nextPoint)) mov.TryMove(this, direction, speed, distance);
+		return PhysicsHelper.GetRandomDirection();
 	}
 
-	private bool IsPossible(Vector3 nextPoint)
+	protected override bool CanGo(Vector3 nextPoint)
 	{
 		var hitColliders = Physics.OverlapCapsule(nextPoint, nextPoint, 0.5f);
 		int enemyOverlapCount = 0;
 		foreach (var col in hitColliders)
 		{
 			if (col.gameObject.tag == "Enemy") enemyOverlapCount++;
-			if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Brick Wall") return true;
+			if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Brick Wall") return false;
 		}
-		if (enemyOverlapCount > 1) return true;
-		return false;
+		if (enemyOverlapCount > 1) return false;
+		return true;
 	}
 
 }

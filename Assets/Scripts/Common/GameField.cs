@@ -98,16 +98,11 @@ public class GameField : GameFieldBase
 
 	private void GenerateCharacters()
 	{
-		GetPlayer();
-		GetEnemies();
-		GetPlayer();
-
-		GameObject enemyPrefab = dynamicObjects.GetEnemyPrefab();
-		Vector3 pos = new Vector3(0, wallBottom*2, 5);
-		Instantiate(enemyPrefab, pos, Quaternion.identity);
+		GeneratePlayer();
+		GenerateEnemies();
 	}
 
-	private void GetPlayer()
+	private void GeneratePlayer()
 	{
 		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
 		Vector3 position = new Vector3(0, wallBottom * 2, 0);
@@ -120,7 +115,7 @@ public class GameField : GameFieldBase
 		filledPos[indexZ, indexX] = true;
 	}
 
-	private void GetEnemies()
+	private void GenerateEnemies()
 	{
 		System.Random rand = new System.Random();
 		int count = enemyCount;
@@ -130,14 +125,14 @@ public class GameField : GameFieldBase
 			int columPos = rand.Next(0, _columnCount);
 			if (!filledPos[rowPos, columPos])
 			{
-				GetEnemy(columPos, rowPos);
+				GenerateEnemy(columPos, rowPos);
 				count--;
 			}
 		}
 
 	}
 
-	private void GetEnemy(int indexX, int indexZ)
+	private void GenerateEnemy(int indexX, int indexZ)
 	{
 		GameObject enemyPrefab = dynamicObjects.GetEnemyPrefab();
 		Vector3 pos = new Vector3(indexX, wallBottom * 2, indexZ);

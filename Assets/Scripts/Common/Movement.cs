@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Common
 {
-	class Movement 
+	public class Movement 
 	{
 		private bool isMoving = false;
 		private Vector3 direction;
