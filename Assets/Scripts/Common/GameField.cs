@@ -5,23 +5,35 @@ using System;
 
 public class GameField : GameFieldBase
 {
+	public StaticObjectsGeneratorBase staticObjects;
+	public DynamicObjectsGeneratorBase dynamicObjects;
+
 	private bool[,] filledPos;
-	private StaticObjectsGeneratorBase staticObjects;
     private float wallBottom = 0.5f;
 	private int enemyCount = 3;
-
-	private DynamicObjectsGeneratorBase dynamicObjects;
+	GameObject player;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 
-        staticObjects = ObjectCreator.StaticObjects();
+        staticObjects = ObjectCreator.GetStaticObjects();
 		filledPos = new bool[_rowCount, _columnCount];
         GenerateField();
 
-		dynamicObjects = ObjectCreator.DynamicObjects();
+		dynamicObjects = ObjectCreator.GetDynamicObjects();
 		GenerateCharacters();
 
+	}
+
+	void FixedUpdate()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			GameObject bombPrefab = dynamicObjects.GetBombPrefab();
+			Vector3 position = new Vector3(player.transform.position.x, player.transform.position.y - 0.9f, player.transform.position.z);
+			GameObject bombObject = Instantiate(bombPrefab, position, Quaternion.identity);
+		}
 	}
 
     public override void GenerateField()
@@ -106,7 +118,7 @@ public class GameField : GameFieldBase
 	{
 		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
 		Vector3 position = new Vector3(0, wallBottom * 2, 0);
-		Instantiate(playerPrefab, position, Quaternion.identity);
+		player = Instantiate(playerPrefab, position, Quaternion.identity);
 		FillGameObjectArea(0, 0);
 	}
 

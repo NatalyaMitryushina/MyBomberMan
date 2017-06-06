@@ -8,6 +8,15 @@ using Assets.Scripts.Common;
 	class PhysicsHelper
 	{
 		public static System.Random rand = new System.Random();
+		
+
+		public static List<Vector3> bombDirections = new List<Vector3>(){
+			new Vector3(Vector3.forward.x, Vector3.forward.y + 0.5f, Vector3.forward.z),
+			new Vector3(Vector3.back.x, Vector3.back.y + 0.5f, Vector3.back.z),
+			new Vector3(Vector3.right.x, Vector3.right.y + 0.5f, Vector3.right.z),
+			new Vector3(Vector3.left.x, Vector3.left.y + 0.5f, Vector3.left.z),
+			Vector3.up,
+		};
 
 		public static Vector3 GetRandomDirection()
 		{

@@ -89,3 +89,5 @@ C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.VR.xml
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Наталья\Documents\GitHub\MyBomberMan\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

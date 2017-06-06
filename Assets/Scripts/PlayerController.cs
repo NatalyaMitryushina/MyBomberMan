@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Common;
 using Assets.Scripts.Base;
 
-public class PlayerController : ObjectController
+public class PlayerController : CharacterControllerBase
 {
 	public PlayerController()
 	{

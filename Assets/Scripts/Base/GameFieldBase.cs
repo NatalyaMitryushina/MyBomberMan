@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class GameFieldBase : MonoBehaviour {
 
+
     protected readonly int _columnCount = 9;
     protected readonly int _rowCount = 11;
 	protected readonly int _breakWallsCount;

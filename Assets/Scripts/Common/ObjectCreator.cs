@@ -4,14 +4,19 @@ using UnityEngine;
 
 public static class ObjectCreator
 {
-	public static StaticObjectsGeneratorBase StaticObjects()
+	private static StaticObjectsGeneratorBase staticObjects;
+	private static DynamicObjectsGeneratorBase dynamicObjects;
+
+	public static StaticObjectsGeneratorBase GetStaticObjects()
 	{
-		return new StaticObjectsGenerator();
+		if (staticObjects == null) staticObjects = new StaticObjectsGenerator();
+		return staticObjects;
 	}
 
-	public static DynamicObjectsGeneratorBase DynamicObjects()
+	public static DynamicObjectsGeneratorBase GetDynamicObjects()
 	{
-		return new DynamicObjectsGenerator();
+		if (dynamicObjects == null) dynamicObjects = new DynamicObjectsGenerator();
+		return dynamicObjects;
 	}
 		
 }

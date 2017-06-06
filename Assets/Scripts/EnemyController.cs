@@ -6,7 +6,7 @@ using UnityEngine;
 using Assets.Scripts.Common;
 using Assets.Scripts.Base;
 
-public class EnemyController : ObjectController
+public class EnemyController : CharacterControllerBase
 {
 	public EnemyController()
 	{
