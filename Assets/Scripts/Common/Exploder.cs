@@ -17,13 +17,12 @@ namespace Assets.Scripts.Common
 			yield return new WaitForSeconds(explosionDelay);
 			
 			ShowExplosionEffects(explodedObject, explosionDistance, particleSystemPrefab);
-			yield return new WaitForSeconds(explosionDuration * 0.1f);
+			yield return new WaitForSeconds(explosionDuration * 0.3f);
 
 			SimulatePhysicalDamage(explodedObject, explosionDistance, explodeCallBack);
-			yield return new WaitForSeconds(explosionDuration * 0.9f);
+			yield return new WaitForSeconds(explosionDuration * 0.7f);
 
-			explodedObject.SetActive(false);
-			
+			UnityEngine.Object.DestroyObject(explodedObject);		
 		}
 
 		private static void SimulatePhysicalDamage(GameObject explodedObject, float explosionDistance, Action<RaycastHit[]> explodeCallBack)

@@ -19,19 +19,18 @@ namespace Assets.Scripts.Common
 
 		public static IEnumerator Fade(this GameObject hittedObject)
 		{
-			Renderer renderer = hittedObject.GetComponent<Renderer>();
-			if (renderer != null)
+			Renderer[] renderers = hittedObject.GetComponentsInChildren<Renderer>();
+			if (renderers != null)
 			{
-				for (float f = 1f; f >= 0f; f -= 0.02f)
+				for (float f = 1f; f >= 0f; f -= 0.05f)
 				{
-					Color color = renderer.material.color;
-					color.a = f;
-					renderer.material.color = color;
-					float a = renderer.material.color.a;
-					Debug.Log(a);
+					foreach (var renderer in renderers)
+					{
+						Color color = renderer.material.color;
+						color.a = f;
+						renderer.material.color = color;
+					}
 					yield return null;
-					
-
 				}
 			}
 		}

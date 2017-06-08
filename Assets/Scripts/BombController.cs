@@ -37,16 +37,13 @@ public class BombController : BombControllerBase
 			foreach (RaycastHit hit in hittedObjects)
 			{
 				GameObject hittedObject = hit.transform.gameObject;
-				Debug.Log(hittedObject.tag);
 				switch(hittedObject.tag)
 				{
 					case "Brick Wall":
-						//StartCoroutine(DestroyObjectWithFading(hittedObject));
 						DestroyObject(hittedObject);
 						break;
 					case "Enemy":
 						StartCoroutine(DestroyObjectWithFading(hittedObject));
-						//DestroyObject(hittedObject);
 						break;
 					case "Player":
 						DestroyObject(hittedObject);

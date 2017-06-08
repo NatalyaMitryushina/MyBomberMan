@@ -59,7 +59,6 @@ C:\Users\Наталья\Documents\Unity\BomberMan\MyBomberMan\Temp\bin\Debug\Uni
 C:\Users\Наталья\Documents\Unity\BomberMan\MyBomberMan\Temp\bin\Debug\UnityEngine.VR.xml
 C:\Users\Наталья\Documents\Unity\BomberMan\MyBomberMan\obj\Debug\Assembly-CSharp.dll
 C:\Users\Наталья\Documents\Unity\BomberMan\MyBomberMan\obj\Debug\Assembly-CSharp.pdb
-C:\Users\Наталья\Documents\GitHub\MyBomberMan\obj\Debug\Assembly-CSharp.dll
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Assembly-CSharp.dll
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Assembly-CSharp.pdb
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\nunit.framework.dll
@@ -79,6 +78,7 @@ C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Unity.UNetWe
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Unity.CecilTools.dll
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Mono.Cecil.Pdb.dll
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.xml
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEditor.xml
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.UI.xml
@@ -88,6 +88,6 @@ C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\nunit.framew
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.Analytics.xml
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\UnityEngine.VR.xml
-C:\Users\Наталья\Documents\GitHub\MyBomberMan\obj\Debug\Assembly-CSharp.pdb
 C:\Users\Наталья\Documents\GitHub\MyBomberMan\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-C:\Users\Наталья\Documents\GitHub\MyBomberMan\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\Наталья\Documents\GitHub\MyBomberMan\obj\Debug\Assembly-CSharp.dll
+C:\Users\Наталья\Documents\GitHub\MyBomberMan\obj\Debug\Assembly-CSharp.pdb
