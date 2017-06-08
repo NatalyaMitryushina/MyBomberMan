@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.Common;
+using System.Collections;
 
-	class PhysicsHelper
+	public class PhysicsHelper
 	{
 		public static System.Random rand = new System.Random();
 		
@@ -53,4 +54,5 @@ using Assets.Scripts.Common;
 			}
 			transform.eulerAngles = new Vector3(0, rotationAngle, 0);
 		}
+
 	}

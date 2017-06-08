@@ -9,23 +9,31 @@ namespace Assets.Scripts.Common
 {
 	public static class Exploder
 	{
-		private static float explosionDuration = 0.5f;
+		private static float explosionDuration = 1f;
 
 		public static IEnumerator Explode(GameObject explodedObject, float explosionDelay, float explosionDistance,
 			GameObject particleSystemPrefab, Action<RaycastHit[]> explodeCallBack = null)
 		{
 			yield return new WaitForSeconds(explosionDelay);
-			ShowExplosionEffects(explodedObject, explosionDistance, particleSystemPrefab);		
+			
+			ShowExplosionEffects(explodedObject, explosionDistance, particleSystemPrefab);
+			yield return new WaitForSeconds(explosionDuration * 0.1f);
 
-			yield return new WaitForSeconds(explosionDuration);
+			SimulatePhysicalDamage(explodedObject, explosionDistance, explodeCallBack);
+			yield return new WaitForSeconds(explosionDuration * 0.9f);
+
+			explodedObject.SetActive(false);
+			
+		}
+
+		private static void SimulatePhysicalDamage(GameObject explodedObject, float explosionDistance, Action<RaycastHit[]> explodeCallBack)
+		{
+			explodedObject.Invisible();
 			RaycastHit[] hittedObjects = GetHittedObjects(explodedObject, explosionDistance);
-
 			if (explodeCallBack != null)
 			{
 				explodeCallBack(hittedObjects);
 			}
-
-			UnityEngine.Object.DestroyObject(explodedObject);
 		}
 
 		private static void ShowExplosionEffects(GameObject explodedObject, float explosionDistance, GameObject particleSystemPrefab)

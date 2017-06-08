@@ -10,27 +10,26 @@ using System.Collections;
 public class BombController : BombControllerBase
 	{
 		private float explosionDelay = 2f;
+		private float explostionDistance = 1.5f;
 		private DynamicObjectsGeneratorBase dynamicObjects;
+		private bool isMoving = false;
 
 		void Start()
 		{
 			dynamicObjects = ObjectCreator.GetDynamicObjects();
 		}
 
-		void FixedUpdate()
+		void Update()
 		{
-			DropBomb();			
+			if(!isMoving)
+				DropBomb();	
 		}
 	
 		public override void DropBomb()
 		{
-			StartCoroutine(Exploder.Explode(this.gameObject, explosionDelay, GetExplostionDistance(), dynamicObjects.GetExplosionSystemPrefab(),
-				CheckExplosionDamages));
-		}
-
-		private float GetExplostionDistance()
-		{
-			return 1.5f;
+			isMoving = true;
+			StartCoroutine(Exploder.Explode(this.gameObject, explosionDelay, explostionDistance, dynamicObjects.GetExplosionSystemPrefab(),
+				CheckExplosionDamages));	
 		}
 
 		private void CheckExplosionDamages(RaycastHit[] hittedObjects)
@@ -46,7 +45,8 @@ public class BombController : BombControllerBase
 						DestroyObject(hittedObject);
 						break;
 					case "Enemy":
-						DestroyObject(hittedObject);
+						StartCoroutine(DestroyObjectWithFading(hittedObject));
+						//DestroyObject(hittedObject);
 						break;
 					case "Player":
 						DestroyObject(hittedObject);
@@ -57,24 +57,9 @@ public class BombController : BombControllerBase
 
 		private IEnumerator DestroyObjectWithFading(GameObject hittedObject)
 		{
-			yield return Fade(hittedObject);
-			DestroyObject(hittedObject);
+			yield return StartCoroutine(hittedObject.Fade());			
+			UnityEngine.Object.DestroyObject(hittedObject);		
 		}
 
-		private IEnumerator Fade(GameObject hittedObject)
-		{
-			Renderer renderer = hittedObject.GetComponent<Renderer>();
-			if(renderer != null)
-			{
-				for(float f = 1f; f > 0; f -= 0.05f)
-				{
-					Color color = renderer.material.color;
-					color.a = f;
-					renderer.material.color = color;
-					yield return null;
-
-				}
-			}
-		}
 	}
 
