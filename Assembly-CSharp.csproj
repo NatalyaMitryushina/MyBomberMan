@@ -64,12 +64,14 @@
      <Compile Include="Assets\Scripts\Common\Exploder.cs" />
      <Compile Include="Assets\Scripts\Common\Extensions.cs" />
      <Compile Include="Assets\Scripts\Common\GameField.cs" />
+     <Compile Include="Assets\Scripts\Common\GameFieldPositionsManager.cs" />
      <Compile Include="Assets\Scripts\Common\Movement.cs" />
      <Compile Include="Assets\Scripts\Common\ObjectCreator.cs" />
      <Compile Include="Assets\Scripts\Common\PhysicsHelper.cs" />
      <Compile Include="Assets\Scripts\Common\StaticObjectsGenerator.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SmartEnemyController.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
      <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />

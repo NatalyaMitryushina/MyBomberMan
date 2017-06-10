@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Assets.Scripts.Base;
+using Assets.Scripts.Common;
 
 public class GameField : GameFieldBase
 {
 	public StaticObjectsGeneratorBase staticObjects;
 	public DynamicObjectsGeneratorBase dynamicObjects;
 
-	private bool[,] filledPos;
+	private GameFieldPositionsManager gameFieldPositionsManager;
     private float wallBottom = 0.5f;
 	private int enemyCount = 3;
+	private int smartEnemyCount = 1;
 	GameObject player;
 
-	// Use this for initialization
 	void Start ()
 	{
-
         staticObjects = ObjectCreator.GetStaticObjects();
-		filledPos = new bool[_rowCount, _columnCount];
+
+		gameFieldPositionsManager = new GameFieldPositionsManager(_columnCount, _rowCount);
         GenerateField();
 
 		dynamicObjects = ObjectCreator.GetDynamicObjects();
@@ -33,7 +35,22 @@ public class GameField : GameFieldBase
 			GameObject bombPrefab = dynamicObjects.GetBombPrefab();
 			Vector3 position = new Vector3(player.transform.position.x, player.transform.position.y - 0.9f, player.transform.position.z);
 			GameObject bombObject = Instantiate(bombPrefab, position, Quaternion.identity);
+
+			float bombActionTime = bombObject.GetComponent<BombControllerBase>().ExplosionDelay 
+				+ bombObject.GetComponent<BombControllerBase>().ExplostionDuration;
+			StartCoroutine(FreeBombArea(bombObject, bombActionTime));
 		}
+	}
+
+	private IEnumerator FreeBombArea(GameObject bombObject, float bombActionTime)
+	{
+		yield return new WaitForSeconds(bombActionTime);
+
+		int xBombPos = (int)bombObject.transform.position.x;
+		int zBombPos = (int)bombObject.transform.position.z;
+		gameFieldPositionsManager.FreeGameFieldPositionArea(xBombPos, zBombPos, bombObject.GetComponent<BombControllerBase>().ExplostionDistance);
+
+		UnityEngine.Object.DestroyObject(bombObject);
 	}
 
     public override void GenerateField()
@@ -67,8 +84,6 @@ public class GameField : GameFieldBase
 			position = new Vector3(_columnCount, wallBottom, i);
             Instantiate(concreteWallPrefab, position, Quaternion.identity);
         }
-
-
     }
 
 	private void GenerateConcreteWalls()
@@ -83,7 +98,7 @@ public class GameField : GameFieldBase
 					Vector3 position = new Vector3(j, wallBottom, i);
 					Instantiate(concreteWallPrefab, position, Quaternion.identity);
 
-					filledPos [i, j] = true;
+					gameFieldPositionsManager.FillGameFieldPosition(j, i, concreteWallPrefab.tag);
 				}
 			}
 		}
@@ -95,14 +110,14 @@ public class GameField : GameFieldBase
 		System.Random rand = new System.Random();
 
 		for (int k = 0; k < _breakWallsCount; ) {
-			int rowPos = rand.Next (1, _rowCount);
-			int columPos = rand.Next (1, _columnCount);
+			int zPos = rand.Next (1, _rowCount);
+			int xPos = rand.Next (1, _columnCount);
 
-			if (!filledPos [rowPos, columPos]) 
+			if (!gameFieldPositionsManager.IsFilled(xPos, zPos)) 
 			{
-				Vector3 position = new Vector3 (columPos, wallBottom, rowPos);
+				Vector3 position = new Vector3 (xPos, wallBottom, zPos);
 				Instantiate(brickWallPrefab, position, Quaternion.identity);
-				filledPos [rowPos, columPos] = true;
+				gameFieldPositionsManager.FillGameFieldPosition(xPos, zPos, brickWallPrefab.tag);
 				k++;
 			}
 		}
@@ -119,37 +134,37 @@ public class GameField : GameFieldBase
 		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
 		Vector3 position = new Vector3(0, wallBottom * 2, 0);
 		player = Instantiate(playerPrefab, position, Quaternion.identity);
-		FillGameObjectArea(0, 0);
-	}
-
-	private void FillGameObjectArea(int indexX, int indexZ)
-	{
-		filledPos[indexZ, indexX] = true;
+		gameFieldPositionsManager.FillGameFieldPosition(0, 0, player.tag);
 	}
 
 	private void GenerateEnemies()
 	{
 		System.Random rand = new System.Random();
-		int count = enemyCount;
+		int count = enemyCount + smartEnemyCount;
 		while(count > 0)
 		{
-			int rowPos = rand.Next(0, _rowCount);
-			int columPos = rand.Next(0, _columnCount);
-			if (!filledPos[rowPos, columPos])
+			int zPos = rand.Next(0, _rowCount);
+			int xPos = rand.Next(0, _columnCount);
+			if (!gameFieldPositionsManager.IsFilled(xPos, zPos))
 			{
-				GenerateEnemy(columPos, rowPos);
+				if (count > enemyCount)
+				{
+					GenerateEnemy(xPos, zPos, dynamicObjects.GetSmartEnemyPrefab());
+				}
+				else
+				{
+					GenerateEnemy(xPos, zPos, dynamicObjects.GetEnemyPrefab());
+				}
 				count--;
 			}
 		}
-
 	}
 
-	private void GenerateEnemy(int indexX, int indexZ)
+	private void GenerateEnemy(int indexX, int indexZ, GameObject enemyPrefab)
 	{
-		GameObject enemyPrefab = dynamicObjects.GetEnemyPrefab();
 		Vector3 pos = new Vector3(indexX, wallBottom * 2, indexZ);
 		Instantiate(enemyPrefab, pos, Quaternion.identity);
-		FillGameObjectArea(indexX, indexZ);
+		gameFieldPositionsManager.FillGameFieldPosition(indexX, indexZ, enemyPrefab.tag);
 	}
 		
 }

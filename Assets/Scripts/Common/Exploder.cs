@@ -9,9 +9,7 @@ namespace Assets.Scripts.Common
 {
 	public static class Exploder
 	{
-		private static float explosionDuration = 1f;
-
-		public static IEnumerator Explode(GameObject explodedObject, float explosionDelay, float explosionDistance,
+		public static IEnumerator Explode(GameObject explodedObject, float explosionDelay, float explosionDistance, float explosionDuration,
 			GameObject particleSystemPrefab, Action<RaycastHit[]> explodeCallBack = null)
 		{
 			yield return new WaitForSeconds(explosionDelay);
@@ -22,7 +20,7 @@ namespace Assets.Scripts.Common
 			SimulatePhysicalDamage(explodedObject, explosionDistance, explodeCallBack);
 			yield return new WaitForSeconds(explosionDuration * 0.7f);
 
-			UnityEngine.Object.DestroyObject(explodedObject);		
+			//UnityEngine.Object.DestroyObject(explodedObject);		
 		}
 
 		private static void SimulatePhysicalDamage(GameObject explodedObject, float explosionDistance, Action<RaycastHit[]> explodeCallBack)

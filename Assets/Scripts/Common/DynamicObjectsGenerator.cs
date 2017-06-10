@@ -21,6 +21,14 @@ public class DynamicObjectsGenerator : DynamicObjectsGeneratorBase
 		return newGameObject;
 	}
 
+	public override GameObject GetSmartEnemyPrefab()
+	{
+		GameObject newGameObject = Resources.Load("Characters/SmartEnemy", typeof(GameObject)) as GameObject;
+		if (newGameObject.GetComponent<EnemyController>() == null)
+			newGameObject.AddComponent<EnemyController>();
+		return newGameObject;
+	}
+
 	public override GameObject GetBombPrefab()
 	{
 		GameObject newGameObject = Resources.Load("Bomb/Bomb", typeof(GameObject)) as GameObject;

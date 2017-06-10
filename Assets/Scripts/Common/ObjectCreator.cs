@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Base;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,4 +20,8 @@ public static class ObjectCreator
 		return dynamicObjects;
 	}
 		
+	//public static BombControllerBase GetBombController(GameObject gameObject)
+	//{
+	//	return gameObject.GetComponent<BombControllerBase>();
+	//}
 }
