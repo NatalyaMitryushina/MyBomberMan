@@ -13,19 +13,25 @@ public class GameField : GameFieldBase
 	private GameFieldPositionsManager gameFieldPositionsManager;
     private float wallBottom = 0.5f;
 	private int enemyCount = 3;
-	private int smartEnemyCount = 1;
+	private int smartEnemyCount = 3;
 	GameObject player;
+
+	GameField()
+	{
+		gameFieldPositionsManager = new GameFieldPositionsManager(_columnCount, _rowCount);
+		this.SetGameFieldPositionsManager(gameFieldPositionsManager);
+		
+	}
 
 	void Start ()
 	{
         staticObjects = ObjectCreator.GetStaticObjects();
-
-		gameFieldPositionsManager = new GameFieldPositionsManager(_columnCount, _rowCount);
-        GenerateField();
-
 		dynamicObjects = ObjectCreator.GetDynamicObjects();
+
+        GenerateField();
 		GenerateCharacters();
 
+		gameFieldPositionsManager.ClearCharactersFieldPositions();
 	}
 
 	void FixedUpdate()
@@ -46,8 +52,8 @@ public class GameField : GameFieldBase
 	{
 		yield return new WaitForSeconds(bombActionTime);
 
-		int xBombPos = (int)bombObject.transform.position.x;
-		int zBombPos = (int)bombObject.transform.position.z;
+		int xBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.x));
+		int zBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.z));
 		gameFieldPositionsManager.FreeGameFieldPositionArea(xBombPos, zBombPos, bombObject.GetComponent<BombControllerBase>().ExplostionDistance);
 
 		UnityEngine.Object.DestroyObject(bombObject);
@@ -134,7 +140,9 @@ public class GameField : GameFieldBase
 		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
 		Vector3 position = new Vector3(0, wallBottom * 2, 0);
 		player = Instantiate(playerPrefab, position, Quaternion.identity);
-		gameFieldPositionsManager.FillGameFieldPosition(0, 0, player.tag);
+		int xPos = Convert.ToInt32(Math.Round(player.transform.position.x));
+		int zPos = Convert.ToInt32(Math.Round(player.transform.position.z));
+		gameFieldPositionsManager.FillGameFieldPosition(xPos, zPos, player.tag);
 	}
 
 	private void GenerateEnemies()
@@ -149,7 +157,8 @@ public class GameField : GameFieldBase
 			{
 				if (count > enemyCount)
 				{
-					GenerateEnemy(xPos, zPos, dynamicObjects.GetSmartEnemyPrefab());
+					GameObject smartEnemy = dynamicObjects.GetSmartEnemyPrefab();
+					GenerateEnemy(xPos, zPos, smartEnemy);
 				}
 				else
 				{

@@ -60,6 +60,8 @@
      <Compile Include="Assets\Scripts\Base\GameFieldBase.cs" />
      <Compile Include="Assets\Scripts\Base\StaticObjectsGeneratorBase.cs" />
      <Compile Include="Assets\Scripts\BombController.cs" />
+     <Compile Include="Assets\Scripts\Common\AStar\AStarSearch.cs" />
+     <Compile Include="Assets\Scripts\Common\AStar\PathPoint.cs" />
      <Compile Include="Assets\Scripts\Common\DynamicObjectsGenerator.cs" />
      <Compile Include="Assets\Scripts\Common\Exploder.cs" />
      <Compile Include="Assets\Scripts\Common\Extensions.cs" />
@@ -68,6 +70,7 @@
      <Compile Include="Assets\Scripts\Common\Movement.cs" />
      <Compile Include="Assets\Scripts\Common\ObjectCreator.cs" />
      <Compile Include="Assets\Scripts\Common\PhysicsHelper.cs" />
+     <Compile Include="Assets\Scripts\Common\Point.cs" />
      <Compile Include="Assets\Scripts\Common\StaticObjectsGenerator.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />

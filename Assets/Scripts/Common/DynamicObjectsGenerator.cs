@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Assets.Scripts;
+using Assets.Scripts.Common;
 
 public class DynamicObjectsGenerator : DynamicObjectsGeneratorBase
 {
@@ -24,8 +26,8 @@ public class DynamicObjectsGenerator : DynamicObjectsGeneratorBase
 	public override GameObject GetSmartEnemyPrefab()
 	{
 		GameObject newGameObject = Resources.Load("Characters/SmartEnemy", typeof(GameObject)) as GameObject;
-		if (newGameObject.GetComponent<EnemyController>() == null)
-			newGameObject.AddComponent<EnemyController>();
+		if (newGameObject.GetComponent<SmartEnemyController>() == null)
+			newGameObject.AddComponent<SmartEnemyController>();
 		return newGameObject;
 	}
 

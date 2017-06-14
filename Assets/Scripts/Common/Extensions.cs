@@ -9,6 +9,7 @@ namespace Assets.Scripts.Common
 {
 	static class Extensions
 	{
+
 		public static void Set(this Transform transform, Vector3 nextPosition)
 		{
 			Vector3 position = transform.position;

@@ -10,23 +10,54 @@ namespace Assets.Scripts.Base
 	public abstract class CharacterControllerBase : MonoBehaviour
 	{
 		protected Vector3 direction;
-		protected float speed;
-		protected float distance;
+		protected float speed = 1f;
+		protected float distance = 1f;
 		protected Movement mov;
+		protected Vector3 prevPosition;
 
-		void Start()
+		protected void Start()
 		{
-			mov = new Movement();
+			prevPosition = transform.position;
+			mov = new Movement();			
 		}
 
-		void Update()
+		void FixedUpdate()
+		{
+			prevPosition = transform.position;
+			TryMove();
+		}
+
+		protected virtual void TryMove()
 		{
 			direction = GetDirection();
 			Vector3 nextPoint = transform.position + direction * distance;
-			if (CanGo(nextPoint)) mov.TryMove(this, direction, speed, distance);
+			if (CanGo(nextPoint))
+			{
+				mov.MoveObject(this, direction, speed, distance);
+			}
 		}
 
-		protected abstract Vector3 GetDirection();
-		protected abstract bool CanGo(Vector3 nextPoint);
+		public Vector3 PrevPosition
+		{
+			get { return prevPosition; }
+		}
+
+		protected virtual Vector3 GetDirection()
+		{
+			return PhysicsHelper.GetRandomDirection();
+		}
+
+		protected virtual bool CanGo(Vector3 nextPoint)
+		{
+			var hitColliders = Physics.OverlapCapsule(nextPoint, nextPoint, 0.5f);
+			int enemyOverlapCount = 0;
+			foreach (var col in hitColliders)
+			{
+				if (col.gameObject.tag == "Enemy") enemyOverlapCount++;
+				if (col.gameObject.tag == "Wall" || col.gameObject.tag == "Brick Wall") return false;
+			}
+			if (enemyOverlapCount > 1) return false;
+			return true;
+		}
 	}
 }

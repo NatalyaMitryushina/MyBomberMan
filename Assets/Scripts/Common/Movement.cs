@@ -16,7 +16,7 @@ namespace Assets.Scripts.Common
 		private float movementDuration = 0.05f;
 		private float smoothing = 7f;
 
-		public void TryMove(MonoBehaviour gameObjectBehavior,  Vector3 direct, float sp, float dist)
+		public void MoveObject(MonoBehaviour gameObjectBehavior,  Vector3 direct, float sp, float dist)
 		{
 			direction = direct;
 			speed = sp;
