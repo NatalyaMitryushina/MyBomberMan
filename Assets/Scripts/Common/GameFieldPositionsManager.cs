@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.Base;
+using System.Collections;
 
 namespace Assets.Scripts.Common
 {
@@ -120,6 +121,15 @@ namespace Assets.Scripts.Common
 					FreeGameFieldPosition(prevX, prevZ);
 				}
 			}
+		}
+
+		public void FreeObjectArea(GameObject bombObject, float explostionDistance)
+		{
+			int xBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.x));
+			int zBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.z));
+			FreeGameFieldPositionArea(xBombPos, zBombPos, explostionDistance);
+
+			
 		}
 	}
 }

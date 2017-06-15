@@ -10,7 +10,7 @@ namespace Assets.Scripts.Base
 	public abstract class CharacterControllerBase : MonoBehaviour
 	{
 		protected Vector3 direction;
-		protected float speed = 1f;
+		protected float speed = PhysicsHelper.CharacterSpeed[SpeedType.Base];
 		protected float distance = 1f;
 		protected Movement mov;
 		protected Vector3 prevPosition;
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Base
 			mov = new Movement();			
 		}
 
-		void FixedUpdate()
+		protected virtual void FixedUpdate()
 		{
 			prevPosition = transform.position;
 			TryMove();

@@ -6,7 +6,9 @@ using UnityEngine;
 using Assets.Scripts.Common;
 using System.Collections;
 
-	public class PhysicsHelper
+	public enum SpeedType { Slow, Base, Fast }
+
+	public static class PhysicsHelper
 	{
 		public static System.Random rand = new System.Random();
 
@@ -24,7 +26,14 @@ using System.Collections;
 			new Vector3(Vector3.left.x, Vector3.left.y + 0.5f, Vector3.left.z),
 			Vector3.up,
 		};
-
+		
+		public static Dictionary<SpeedType, float> CharacterSpeed = new Dictionary<SpeedType, float>()
+		{
+			{SpeedType.Slow, 0.3f},
+			{SpeedType.Base, 0.7f},
+			{SpeedType.Fast, 1.4f}
+		};	
+		
 		public static Vector3 GetRandomDirection()
 		{
 			return characterDirections[rand.Next(0, characterDirections.Count)];

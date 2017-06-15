@@ -10,31 +10,28 @@ using System.Collections;
 public class BombController : BombControllerBase
 	{
 		private DynamicObjectsGeneratorBase dynamicObjects;
-		private bool isMoving = false;
-
-		public BombController()
-		{
-			this.explosionDelay = 2f;
-			this.explosionDistance = 1.5f;
-			this.explosionDuration = 1f;
-		}
+		private bool isMoving = false;		
 
 		void Start()
 		{
 			dynamicObjects = ObjectCreator.GetDynamicObjects();
+			GameObject obj = GameObject.FindGameObjectWithTag("Player");
+			this.additionalExplosionDistance = obj.GetComponent<PlayerController>().Distance;
 		}
 
 		void Update()
 		{
+
 			if(!isMoving)
-				DropBomb();	
+				DropBomb();
+			
 		}
 	
 		public override void DropBomb()
 		{
 			isMoving = true;
-			StartCoroutine(Exploder.Explode(this.gameObject, this.explosionDelay, this.explosionDistance, this.explosionDuration, 
-				dynamicObjects.GetExplosionSystemPrefab(), CheckExplosionDamages));	
+			StartCoroutine(Exploder.Explode(gameObject, ExplosionDelay, ExplosionDistance, ExplosionDuration, 
+				dynamicObjects.GetExplosionSystemPrefab(), CheckExplosionDamages));
 		}
 
 		private void CheckExplosionDamages(RaycastHit[] hittedObjects)

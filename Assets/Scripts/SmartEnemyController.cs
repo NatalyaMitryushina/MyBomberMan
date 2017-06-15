@@ -36,25 +36,28 @@ public class SmartEnemyController : CharacterControllerBase
 
 	protected override void TryMove()
 	{
-		if (path == null)
-		{
-			CalculatePath();
-		}
-		else
-		{
+
 			GameObject obj = GameObject.FindGameObjectWithTag("Player");
-			if (!delay && path.Count > 1 && obj != null)
+			if (!delay  && obj != null)
 			{
-				delay = true;
-				StartCoroutine(CalcDelay());
+				if (path == null)
+				{
+					RevisePlayerPos();
+				}
+				if (path != null && path.Count > 1)
+				{
+					delay = true;
+					StartCoroutine(CalcDelay());
+				}
+				
 			}
-		}
+		
 	}
 
 	private IEnumerator CalcDelay()
 	{
 		base.TryMove();
-		yield return new WaitForSeconds(base.distance / base.speed);
+		yield return new WaitForSeconds(2f);
 		
 		smartEnemyPos = GetGameObjectPos(this.gameObject);
 		if(smartEnemyPos != previousSmartEnemyPos)

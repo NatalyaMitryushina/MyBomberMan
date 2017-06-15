@@ -12,15 +12,14 @@ public class GameField : GameFieldBase
 
 	private GameFieldPositionsManager gameFieldPositionsManager;
     private float wallBottom = 0.5f;
-	private int enemyCount = 3;
-	private int smartEnemyCount = 3;
+	private int enemyCount = 2;
+	private int smartEnemyCount = 2;
 	GameObject player;
 
 	GameField()
 	{
 		gameFieldPositionsManager = new GameFieldPositionsManager(_columnCount, _rowCount);
-		this.SetGameFieldPositionsManager(gameFieldPositionsManager);
-		
+		this.SetGameFieldPositionsManager(gameFieldPositionsManager);	
 	}
 
 	void Start ()
@@ -32,31 +31,6 @@ public class GameField : GameFieldBase
 		GenerateCharacters();
 
 		gameFieldPositionsManager.ClearCharactersFieldPositions();
-	}
-
-	void FixedUpdate()
-	{
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			GameObject bombPrefab = dynamicObjects.GetBombPrefab();
-			Vector3 position = new Vector3(player.transform.position.x, player.transform.position.y - 0.9f, player.transform.position.z);
-			GameObject bombObject = Instantiate(bombPrefab, position, Quaternion.identity);
-
-			float bombActionTime = bombObject.GetComponent<BombControllerBase>().ExplosionDelay 
-				+ bombObject.GetComponent<BombControllerBase>().ExplostionDuration;
-			StartCoroutine(FreeBombArea(bombObject, bombActionTime));
-		}
-	}
-
-	private IEnumerator FreeBombArea(GameObject bombObject, float bombActionTime)
-	{
-		yield return new WaitForSeconds(bombActionTime);
-
-		int xBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.x));
-		int zBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.z));
-		gameFieldPositionsManager.FreeGameFieldPositionArea(xBombPos, zBombPos, bombObject.GetComponent<BombControllerBase>().ExplostionDistance);
-
-		UnityEngine.Object.DestroyObject(bombObject);
 	}
 
     public override void GenerateField()
@@ -112,16 +86,24 @@ public class GameField : GameFieldBase
 
 	private void GenerateBrickWalls()
 	{
-		GameObject brickWallPrefab = staticObjects.GetBrickWallPrefab();
+		GameObject brickWallPrefab;
 		System.Random rand = new System.Random();
 
-		for (int k = 0; k < _breakWallsCount; ) {
+		for (int k = 0; k < _breakWallsCount;) {
 			int zPos = rand.Next (1, _rowCount);
 			int xPos = rand.Next (1, _columnCount);
 
 			if (!gameFieldPositionsManager.IsFilled(xPos, zPos)) 
 			{
 				Vector3 position = new Vector3 (xPos, wallBottom, zPos);
+				if(k < (int) PowerupType._PowerupTypesCount)
+				{
+					brickWallPrefab = staticObjects.GetBrickWallPrefab((PowerupType) k);
+				}
+				else
+				{
+					brickWallPrefab = staticObjects.GetBrickWallPrefab(PowerupType._None);
+				}
 				Instantiate(brickWallPrefab, position, Quaternion.identity);
 				gameFieldPositionsManager.FillGameFieldPosition(xPos, zPos, brickWallPrefab.tag);
 				k++;
@@ -140,6 +122,8 @@ public class GameField : GameFieldBase
 		GameObject playerPrefab = dynamicObjects.GetPlayerPrefab();
 		Vector3 position = new Vector3(0, wallBottom * 2, 0);
 		player = Instantiate(playerPrefab, position, Quaternion.identity);
+		player.GetComponent<PlayerController>().Bomb = dynamicObjects.GetBombPrefab();
+
 		int xPos = Convert.ToInt32(Math.Round(player.transform.position.x));
 		int zPos = Convert.ToInt32(Math.Round(player.transform.position.z));
 		gameFieldPositionsManager.FillGameFieldPosition(xPos, zPos, player.tag);

@@ -12,6 +12,7 @@ public class AStarSearch
 
 	public List<Point> FindPath(GameFieldPositionsManager field, Point start, Point finish)
 	{
+
 		var closedSet = new List<PathPoint>();
 		var openSet = new List<PathPoint>();
 		PathPoint startPoint = new PathPoint(start, null, 0f, GetHeuristic(start, finish));

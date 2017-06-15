@@ -10,7 +10,7 @@ public class EnemyController : CharacterControllerBase
 {
 	public EnemyController()
 	{
-		this.speed = 0.3f;
+		this.speed = PhysicsHelper.CharacterSpeed[SpeedType.Slow];
 	}
 
 }

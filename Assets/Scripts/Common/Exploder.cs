@@ -19,8 +19,7 @@ namespace Assets.Scripts.Common
 
 			SimulatePhysicalDamage(explodedObject, explosionDistance, explodeCallBack);
 			yield return new WaitForSeconds(explosionDuration * 0.7f);
-
-			//UnityEngine.Object.DestroyObject(explodedObject);		
+		
 		}
 
 		private static void SimulatePhysicalDamage(GameObject explodedObject, float explosionDistance, Action<RaycastHit[]> explodeCallBack)
@@ -41,7 +40,7 @@ namespace Assets.Scripts.Common
 			foreach(ParticleSystem particle in particles)
 			{
 				var mainSettings = particle.main;
-				mainSettings.startSpeed = explosionDistance;
+				mainSettings.startSpeed = explosionDistance * 2.5f;
 				particle.Play();
 				
 			}

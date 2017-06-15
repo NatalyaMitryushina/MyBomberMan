@@ -6,7 +6,7 @@ namespace UnityStandardAssets.SceneUtils
 {
     public class SlowMoButton : MonoBehaviour
     {
-        public Sprite FullSpeedTex;     // the ui texture for full speed
+        public Sprite FullSpeedTex;     // the ui texture for full CharacterSpeed
         public Sprite SlowSpeedTex;     // the ui texture for slow motion mode
         public float fullSpeed = 1;
         public float slowSpeed = 0.3f;
