@@ -16,7 +16,7 @@ public class BombController : BombControllerBase
 		{
 			dynamicObjects = ObjectCreator.GetDynamicObjects();
 			GameObject obj = GameObject.FindGameObjectWithTag("Player");
-			this.additionalExplosionDistance = obj.GetComponent<PlayerController>().Distance;
+			this.additionalExplosionDistance = obj.GetComponent<PlayerController>().AddedDistance;
 		}
 
 		void Update()

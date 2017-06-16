@@ -48,10 +48,8 @@ public class SmartEnemyController : CharacterControllerBase
 				{
 					delay = true;
 					StartCoroutine(CalcDelay());
-				}
-				
-			}
-		
+				}			
+			}	
 	}
 
 	private IEnumerator CalcDelay()

@@ -9,7 +9,7 @@ public class PlayerController : CharacterControllerBase
 {
 	private List<Powerup> powerups = new List<Powerup>();
 	public GameObject Bomb { get; set; }
-	public float Distance { get; set; }
+	public float AddedDistance { get; set; }
 	private List<GameObject> droppedBombs = new List<GameObject>();
 	private GameFieldPositionsManager gameFieldPosManager;
 
@@ -73,15 +73,15 @@ public class PlayerController : CharacterControllerBase
 	private void DropBomb()
 	{
 		Vector3 position = new Vector3(transform.position.x, transform.position.y - 0.9f, transform.position.z);
-		InstallExplosionDistance();
+		SetupAddedExplosionDistance();
 		GameObject bomb = Instantiate(Bomb, position, Quaternion.identity);
 		droppedBombs.Add(bomb);
 		StartCoroutine(ExplodeBomb(bomb));
 	}
 
-	private void InstallExplosionDistance()
+	private void SetupAddedExplosionDistance()
 	{
-		Distance = powerups.Count(p => p.powerupType == PowerupType.Flames);		
+		AddedDistance = powerups.Count(p => p.powerupType == PowerupType.Flames);		
 	}
 	private IEnumerator ExplodeBomb(GameObject bombObject)
 	{

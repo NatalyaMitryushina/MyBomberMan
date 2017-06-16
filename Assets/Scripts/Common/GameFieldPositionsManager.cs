@@ -123,11 +123,11 @@ namespace Assets.Scripts.Common
 			}
 		}
 
-		public void FreeObjectArea(GameObject bombObject, float explostionDistance)
+		public void FreeObjectArea(GameObject gameObject, float clearanceDistance)
 		{
-			int xBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.x));
-			int zBombPos = Convert.ToInt32(Math.Round(bombObject.transform.position.z));
-			FreeGameFieldPositionArea(xBombPos, zBombPos, explostionDistance);
+			int xBombPos = Convert.ToInt32(Math.Round(gameObject.transform.position.x));
+			int zBombPos = Convert.ToInt32(Math.Round(gameObject.transform.position.z));
+			FreeGameFieldPositionArea(xBombPos, zBombPos, clearanceDistance);
 
 			
 		}
